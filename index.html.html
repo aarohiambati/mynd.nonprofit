@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mynd Nonprofit</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #8fb5bf;
+    --blue-dark: #6a9aa6;
+    --blue-light: #c5dde2;
+    --pink: #f06b8a;
+    --pink-light: #f9b8c7;
+    --cream: #fafaf8;
+    --dark: #2a2a2a;
+    --mid: #555;
+    --border: #e2edf0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1.5px solid var(--border);
+    padding: 0 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--blue-dark);
+  }
+  .nav-logo span { color: var(--pink); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--mid);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--pink); }
+
+  .nav-cta {
+    background: var(--pink);
+    color: white !important;
+    padding: 0.55rem 1.4rem;
+    border-radius: 100px;
+    font-weight: 600 !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+  .nav-cta:hover { background: #d45570 !important; transform: translateY(-1px); color: white !important; }
+
+  /* PAGES */
+  .page { display: none; min-height: 100vh; padding-top: 72px; }
+  .page.active { display: block; }
+
+  /* ==================== HOME ==================== */
+  .hero {
+    min-height: calc(100vh - 72px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 5vw 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--blue-light) 0%, transparent 70%);
+    top: -200px; left: -200px;
+    opacity: 0.5;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--pink-light) 0%, transparent 70%);
+    bottom: -150px; right: -100px;
+    opacity: 0.4;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 1.2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -3px;
+    color: var(--blue-dark);
+    margin-bottom: 0.3rem;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+
+  .hero h1 span { color: var(--pink); }
+
+  .hero-sub {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--blue-dark);
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero p {
+    max-width: 600px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--mid);
+    margin-bottom: 2.8rem;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+
+  .btn-primary {
+    background: var(--pink);
+    color: white;
+    border: none;
+    padding: 1rem 2.2rem;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(240,107,138,0.35);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary:hover { background: #d45570; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(240,107,138,0.4); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--blue-dark);
+    border: 2px solid var(--blue);
+    padding: 1rem 2.2rem;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-secondary:hover { background: var(--blue-light); transform: translateY(-2px); }
+
+  /* MISSION STRIP */
+  .mission-strip {
+    background: var(--blue-dark);
+    color: white;
+    padding: 5rem 5vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .mission-item h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--pink-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .mission-item p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    line-height: 1.6;
+  }
+
+  /* ABOUT SECTION */
+  .section {
+    padding: 7rem 5vw;
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 1rem;
+  }
+
+  .section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--blue-dark);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .section h2 span { color: var(--pink); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .section p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--mid);
+    margin-bottom: 1.2rem;
+  }
+
+  .program-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 12px 40px rgba(143,181,191,0.25); transform: translateY(-4px); }
+
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin-bottom: 0.6rem;
+  }
+
+  .card p {
+    font-size: 0.95rem;
+    color: var(--mid);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ==================== SCHOOLS SIGNUP ==================== */
+  .signup-hero {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+    color: white;
+    padding: 6rem 5vw 4rem;
+    text-align: center;
+  }
+
+  .signup-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+  }
+
+  .signup-hero p {
+    font-size: 1.1rem;
+    opacity: 0.88;
+    max-width: 550px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .form-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 5rem 5vw;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group.full { grid-column: 1 / -1; }
+
+  .form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--blue-dark);
+    letter-spacing: 0.05em;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 0.85rem 1.1rem;
+    font-size: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark);
+    background: white;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(143,181,191,0.2);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 110px; }
+
+  .form-submit {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .success-msg {
+    display: none;
+    background: #e8f5e9;
+    border: 2px solid #81c784;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    color: #2e7d32;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 2rem;
+  }
+
+  /* ==================== FOUNDERS ==================== */
+  .founders-hero {
+    background: linear-gradient(135deg, #fce8ed 0%, var(--blue-light) 100%);
+    padding: 6rem 5vw 4rem;
+    text-align: center;
+  }
+
+  .founders-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: var(--blue-dark);
+    margin-bottom: 1rem;
+  }
+
+  .founders-hero h1 span { color: var(--pink); }
+
+  .founders-hero p {
+    font-size: 1.1rem;
+    color: var(--mid);
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .founders-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 900px;
+    margin: 5rem auto;
+    padding: 0 5vw;
+  }
+
+  .founder-card {
+    background: white;
+    border-radius: 28px;
+    border: 2px solid var(--border);
+    padding: 3rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .founder-card:hover { box-shadow: 0 20px 60px rgba(143,181,191,0.3); transform: translateY(-6px); }
+
+  .founder-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--blue), var(--pink));
+  }
+
+  .founder-avatar {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: white;
+  }
+
+  .founder-avatar.blue { background: linear-gradient(135deg, var(--blue-dark), var(--blue)); }
+  .founder-avatar.pink { background: linear-gradient(135deg, var(--pink), #f9a8ba); }
+
+  .founder-role {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 0.6rem;
+  }
+
+  .founder-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--blue-dark);
+    letter-spacing: -0.5px;
+    margin-bottom: 1rem;
+  }
+
+  .founder-bio {
+    font-size: 0.97rem;
+    color: var(--mid);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .founder-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--blue-dark);
+    text-decoration: none;
+    border: 1.5px solid var(--border);
+    padding: 0.5rem 1.1rem;
+    border-radius: 100px;
+    transition: all 0.2s;
+  }
+  .founder-email:hover { background: var(--blue-light); border-color: var(--blue); }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .badge {
+    background: var(--blue-light);
+    color: var(--blue-dark);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.3rem 0.9rem;
+    border-radius: 100px;
+  }
+
+  /* ==================== STEM PAGE ==================== */
+  .stem-hero {
+    background: linear-gradient(160deg, var(--blue-dark) 0%, #4a7d8a 50%, var(--pink) 100%);
+    color: white;
+    padding: 7rem 5vw 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stem-hero::before {
+    content: '⚙️';
+    position: absolute;
+    font-size: 18rem;
+    opacity: 0.06;
+    top: -2rem;
+    right: -2rem;
+  }
+
+  .stem-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+  }
+
+  .stem-hero p {
+    font-size: 1.15rem;
+    opacity: 0.9;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .stem-section {
+    padding: 6rem 5vw;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .stem-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 900;
+    color: var(--blue-dark);
+    letter-spacing: -1px;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 5rem;
+  }
+
+  .resource-card {
+    border-radius: 20px;
+    padding: 2rem;
+    border: 2px solid var(--border);
+    background: white;
+    transition: all 0.22s;
+    position: relative;
+    overflow: hidden;
+  }
+  .resource-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(143,181,191,0.25); }
+
+  .resource-card .tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+
+  .tag-hackathon { background: #fce8ed; color: var(--pink); }
+  .tag-coding { background: var(--blue-light); color: var(--blue-dark); }
+  .tag-resource { background: #fef3e2; color: #b45309; }
+
+  .resource-card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 0.7rem;
+  }
+
+  .resource-card p {
+    font-size: 0.95rem;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+
+  /* NEWSLETTER */
+  .newsletter-box {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+    border-radius: 28px;
+    padding: 4rem;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .newsletter-box::before {
+    content: '✉️';
+    position: absolute;
+    font-size: 10rem;
+    opacity: 0.07;
+    right: 2rem;
+    top: -1rem;
+  }
+
+  .newsletter-box h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 0.8rem;
+  }
+
+  .newsletter-box p {
+    font-size: 1.05rem;
+    opacity: 0.88;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0.8rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .newsletter-form input {
+    flex: 1;
+    border: none;
+    border-radius: 100px;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    color: var(--dark);
+  }
+
+  .newsletter-form button {
+    background: var(--pink);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 1rem 1.8rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .newsletter-form button:hover { background: #d45570; transform: scale(1.03); }
+
+  .nl-success {
+    display: none;
+    background: rgba(255,255,255,0.18);
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 14px;
+    padding: 1.2rem 2rem;
+    color: white;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-top: 1.5rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 3rem 5vw;
+    font-size: 0.9rem;
+    line-height: 2;
+  }
+
+  footer .footer-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--blue-light);
+    margin-bottom: 0.5rem;
+  }
+  footer .footer-logo span { color: var(--pink-light); }
+
+  /* ==================== CURSOR ==================== */
+  * { cursor: none !important; }
+
+  #cursor-dot {
+    position: fixed;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--pink);
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: width 0.15s, height 0.15s, background 0.2s;
+    mix-blend-mode: multiply;
+  }
+
+  #cursor-ring {
+    position: fixed;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 2px solid var(--blue);
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s ease, width 0.2s, height 0.2s, border-color 0.2s, opacity 0.2s;
+  }
+
+  body:has(a:hover) #cursor-dot,
+  body:has(button:hover) #cursor-dot { width: 22px; height: 22px; background: var(--blue-dark); }
+  body:has(a:hover) #cursor-ring,
+  body:has(button:hover) #cursor-ring { width: 52px; height: 52px; border-color: var(--pink); }
+
+  .sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99997;
+    border-radius: 50%;
+    animation: sparkle-pop 0.7s ease forwards;
+    transform: translate(-50%, -50%);
+  }
+
+  @keyframes sparkle-pop {
+    0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); }
+  }
+
+  /* FLOATING STEM ORBS */
+  .stem-orb {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    cursor: pointer !important;
+    user-select: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: float-orb var(--dur, 6s) ease-in-out infinite var(--delay, 0s);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    z-index: 2;
+  }
+  .stem-orb:hover { transform: scale(1.25) !important; box-shadow: 0 16px 40px rgba(240,107,138,0.4) !important; }
+
+  @keyframes float-orb {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33%       { transform: translateY(-18px) rotate(5deg); }
+    66%       { transform: translateY(-8px) rotate(-4deg); }
+  }
+
+  /* POP TOOLTIP on orb click */
+  .orb-tooltip {
+    position: fixed;
+    background: var(--dark);
+    color: white;
+    padding: 0.6rem 1.1rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    pointer-events: none;
+    z-index: 99996;
+    opacity: 0;
+    animation: tooltip-pop 2s ease forwards;
+    white-space: nowrap;
+    transform: translate(-50%, -150%);
+    font-family: 'DM Sans', sans-serif;
+  }
+  @keyframes tooltip-pop {
+    0%   { opacity: 0; transform: translate(-50%, -170%); }
+    15%  { opacity: 1; transform: translate(-50%, -150%); }
+    75%  { opacity: 1; transform: translate(-50%, -150%); }
+    100% { opacity: 0; transform: translate(-50%, -130%); }
+  }
+
+  /* ==================== INTERACTIVE STEM QUIZ ==================== */
+  .quiz-section {
+    background: white;
+    border-top: 2px solid var(--border);
+    padding: 7rem 5vw;
+    text-align: center;
+  }
+
+  .quiz-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--blue-dark);
+    letter-spacing: -1.5px;
+    margin-bottom: 0.6rem;
+  }
+  .quiz-section h2 span { color: var(--pink); }
+  .quiz-section > p {
+    color: var(--mid);
+    font-size: 1.05rem;
+    margin-bottom: 3rem;
+  }
+
+  .quiz-box {
+    max-width: 680px;
+    margin: 0 auto;
+    background: var(--cream);
+    border: 2px solid var(--border);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quiz-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--blue), var(--pink));
+  }
+
+  .quiz-question {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .quiz-emoji { font-size: 2.8rem; margin-bottom: 1rem; display: block; }
+
+  .quiz-meta {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--blue-dark);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    opacity: 0.7;
+  }
+
+  .quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .quiz-opt {
+    border: 2px solid var(--border);
+    background: white;
+    border-radius: 14px;
+    padding: 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--dark);
+    cursor: pointer !important;
+    transition: all 0.18s;
+    text-align: left;
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.4;
+  }
+  .quiz-opt:hover { border-color: var(--blue); background: var(--blue-light); transform: translateY(-2px); }
+  .quiz-opt.correct { border-color: #4caf50; background: #e8f5e9; color: #2e7d32; }
+  .quiz-opt.wrong   { border-color: var(--pink); background: #fce8ed; color: #b71c1c; }
+  .quiz-opt.disabled { pointer-events: none !important; opacity: 0.6; }
+
+  .quiz-feedback {
+    min-height: 2.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    display: none;
+    margin-bottom: 1.2rem;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct { background: #e8f5e9; color: #2e7d32; }
+  .quiz-feedback.wrong   { background: #fce8ed; color: #c62828; }
+
+  .quiz-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+
+  .quiz-progress {
+    display: flex;
+    gap: 6px;
+  }
+
+  .quiz-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.3s;
+  }
+  .quiz-dot.done  { background: var(--blue); }
+  .quiz-dot.current { background: var(--pink); transform: scale(1.3); }
+
+  .quiz-score {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--blue-dark);
+  }
+
+  .quiz-complete {
+    text-align: center;
+    display: none;
+  }
+  .quiz-complete h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--blue-dark);
+    margin-bottom: 0.5rem;
+  }
+  .quiz-complete .big-emoji { font-size: 4rem; margin-bottom: 1rem; display: block; }
+  .quiz-complete p { color: var(--mid); font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.7; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+    .founders-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .newsletter-form { flex-direction: column; }
+    .mission-strip { grid-template-columns: 1fr; gap: 2rem; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Mynd<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')">Home</a></li>
+    <li><a href="#" onclick="showPage('schools')">Schools</a></li>
+    <li><a href="#" onclick="showPage('founders')">Meet the Founders</a></li>
+    <li><a href="#" onclick="showPage('stem')">STEM Resources</a></li>
+    <li><a href="#" class="nav-cta" onclick="showPage('schools')">Partner With Us</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HOME PAGE ============ -->
+<div id="page-home" class="page active">
+
+  <section class="hero">
+    <!-- FLOATING STEM ORBS -->
+    <div class="stem-orb" style="width:72px;height:72px;background:linear-gradient(135deg,var(--blue-light),var(--blue));top:18%;left:7%;--dur:7s;--delay:0s" onclick="orbClick(this,'Python 🐍 — #1 language for AI & engineering!')" title="">🤖</div>
+    <div class="stem-orb" style="width:60px;height:60px;background:linear-gradient(135deg,#fce8ed,var(--pink-light));top:30%;right:8%;--dur:5.5s;--delay:1s" onclick="orbClick(this,'Hackathons build real skills fast! 🏆')" title="">⚙️</div>
+    <div class="stem-orb" style="width:55px;height:55px;background:linear-gradient(135deg,#fef3e2,#fde68a);top:65%;left:5%;--dur:8s;--delay:0.5s" onclick="orbClick(this,'Math is the language of the universe! ✨')" title="">🔬</div>
+    <div class="stem-orb" style="width:65px;height:65px;background:linear-gradient(135deg,var(--blue-light),#e0f2fe);top:72%;right:6%;--dur:6s;--delay:1.5s" onclick="orbClick(this,'Code turns ideas into reality! 💡')" title="">💻</div>
+    <div class="stem-orb" style="width:50px;height:50px;background:linear-gradient(135deg,#e8f5e9,#a5d6a7);top:20%;right:22%;--dur:9s;--delay:2s" onclick="orbClick(this,'Engineering = creativity + logic 🚀')" title="">🚀</div>
+    <div class="hero-eyebrow">Empowering the Next Generation</div>
+    <h1>Mynd<span>.</span></h1>
+    <div class="hero-sub">Nonprofit — Where STEM Meets Purpose</div>
+    <p>We bring engineering workshops, coding programs, and hands-on STEM experiences directly to schools — igniting curiosity and building the next generation of innovators.</p>
+    <div class="hero-buttons">
+      <button class="btn-primary" onclick="showPage('schools')">Sign Up Your School</button>
+      <button class="btn-secondary" onclick="showPage('stem')">Explore Resources</button>
+    </div>
+  </section>
+
+  <div class="mission-strip">
+    <div class="mission-item">
+      <h3>100+</h3>
+      <p>Students reached through hands-on engineering programs</p>
+    </div>
+    <div class="mission-item">
+      <h3>15+</h3>
+      <p>Schools and community programs partnered with Mynd</p>
+    </div>
+    <div class="mission-item">
+      <h3>3</h3>
+      <p>Core program tracks: Robotics, Coding & Engineering Design</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="two-col">
+      <div>
+        <div class="section-label">Our Mission</div>
+        <h2>Building <span>Brilliant</span> Minds</h2>
+        <p>Mynd is a student-led nonprofit on a mission to democratize access to STEM education. We design and deliver engaging engineering experiences for students who don't always get the chance to explore these fields.</p>
+        <p>Founded by aspiring engineers who believe every student deserves to discover their potential, we partner with schools to deliver workshops, mentorship, and hands-on challenges — completely free of charge.</p>
+        <button class="btn-primary" onclick="showPage('founders')" style="margin-top:1rem">Meet Our Founders →</button>
+      </div>
+      <div class="program-cards">
+        <div class="card">
+          <div class="card-icon">🤖</div>
+          <h4>Robotics Workshop</h4>
+          <p>Students build and program robots, learning teamwork, problem-solving, and coding fundamentals.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💻</div>
+          <h4>Coding Bootcamp</h4>
+          <p>From Scratch to Python — we meet students where they are and take them further than they imagined.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔬</div>
+          <h4>Engineering Design</h4>
+          <p>Real-world challenges using the engineering design process — build, test, iterate, repeat.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🏆</div>
+          <h4>Hackathon Prep</h4>
+          <p>We prepare students to compete in local and national hackathons with confidence and skill.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ SCHOOLS PAGE ============ -->
+<div id="page-schools" class="page">
+
+  <div class="signup-hero">
+    <h1>Partner With Mynd</h1>
+    <p>Ready to bring free STEM programs to your students? Fill out the form below and our team will reach out within 3–5 business days.</p>
+  </div>
+
+  <div class="form-section">
+    <div style="margin-bottom:2.5rem">
+      <div class="section-label">School Registration</div>
+      <h2 style="font-family:'Fraunces',serif;font-size:2.2rem;font-weight:900;color:var(--blue-dark);letter-spacing:-1px">Tell Us About Your <span style="color:var(--pink)">School</span></h2>
+    </div>
+
+    <form id="school-form" onsubmit="submitSchoolForm(event)">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>School Name *</label>
+          <input type="text" placeholder="e.g. Westview Secondary School" required>
+        </div>
+        <div class="form-group">
+          <label>Contact Person *</label>
+          <input type="text" placeholder="Teacher / Administrator name" required>
+        </div>
+        <div class="form-group full">
+          <label>School Address *</label>
+          <input type="text" placeholder="Full street address, city, province/state, postal code" required>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" placeholder="contact@yourschool.edu" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="(555) 000-0000">
+        </div>
+        <div class="form-group">
+          <label>Program of Interest *</label>
+          <select required>
+            <option value="" disabled selected>Select a program</option>
+            <option>Robotics Workshop</option>
+            <option>Coding Bootcamp (Scratch / Python)</option>
+            <option>Engineering Design Challenge</option>
+            <option>Hackathon Preparation</option>
+            <option>Full STEM Day Event</option>
+            <option>Custom / Multiple Programs</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Approximate Number of Students *</label>
+          <select required>
+            <option value="" disabled selected>Select a range</option>
+            <option>1–25 students</option>
+            <option>26–50 students</option>
+            <option>51–100 students</option>
+            <option>101–200 students</option>
+            <option>200+ students</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Grade Level(s)</label>
+          <select>
+            <option value="" disabled selected>Select grade range</option>
+            <option>Elementary (K–5)</option>
+            <option>Middle School (6–8)</option>
+            <option>High School (9–12)</option>
+            <option>Mixed / Multiple grades</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Preferred Timing</label>
+          <select>
+            <option value="" disabled selected>When works for you?</option>
+            <option>As soon as possible</option>
+            <option>Within 1 month</option>
+            <option>1–3 months from now</option>
+            <option>Next semester</option>
+            <option>Flexible</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Any Additional Notes or Requests?</label>
+          <textarea placeholder="Tell us anything helpful — special needs, past programs, specific goals, scheduling constraints, etc."></textarea>
+        </div>
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="btn-primary" style="font-size:1.05rem;padding:1.1rem 2.8rem">Submit Registration ✦</button>
+      </div>
+    </form>
+
+    <div class="success-msg" id="school-success">
+      🎉 Thank you! We've received your registration and will be in touch within 3–5 business days. We're excited to partner with your school!
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ FOUNDERS PAGE ============ -->
+<div id="page-founders" class="page">
+
+  <div class="founders-hero">
+    <div class="section-label">The Team Behind Mynd</div>
+    <h1>Meet the <span>Founders</span></h1>
+    <p>Two aspiring engineers united by a shared belief: that every student, regardless of background, deserves access to world-class STEM education.</p>
+  </div>
+
+  <div class="founders-grid">
+
+    <div class="founder-card">
+      <div class="founder-avatar blue">A</div>
+      <div class="founder-role">Founder & Executive Director</div>
+      <div class="founder-name">Aarohi Ambati</div>
+      <div class="badges">
+        <span class="badge">Engineering</span>
+        <span class="badge">STEM Education</span>
+        <span class="badge">Leadership</span>
+      </div>
+      <p class="founder-bio">Aarohi is a passionate and highly qualified aspiring engineer with a deep commitment to making STEM accessible for all students. As the founder of Mynd, she shaped the organization's vision, programs, and partnerships from the ground up — turning an idea into a thriving nonprofit that inspires the next generation.</p>
+      <a href="mailto:aarohishriya@gmail.com" class="founder-email">✉ aarohishriya@gmail.com</a>
+    </div>
+
+    <div class="founder-card">
+      <div class="founder-avatar pink">N</div>
+      <div class="founder-role">Co-Founder & Program Director</div>
+      <div class="founder-name">Nancy Chen</div>
+      <div class="badges">
+        <span class="badge">Engineering</span>
+        <span class="badge">Curriculum Design</span>
+        <span class="badge">Innovation</span>
+      </div>
+      <p class="founder-bio">Nancy is a driven and highly qualified aspiring engineer who co-founded Mynd with a focus on designing impactful, curriculum-aligned STEM programs. Her technical expertise and creative approach to education have helped shape every workshop, bootcamp, and challenge that Mynd delivers to students across the region.</p>
+      <a href="mailto:nancychen475@gmail.com" class="founder-email">✉ nancychen475@gmail.com</a>
+    </div>
+
+  </div>
+
+  <section class="section" style="background: white; padding: 5rem 5vw; text-align:center">
+    <div class="section-label">Our Story</div>
+    <h2 style="font-family:'Fraunces',serif;font-size:2.5rem;font-weight:900;color:var(--blue-dark);letter-spacing:-1px;margin-bottom:1.5rem">Why We Started <span style="color:var(--pink)">Mynd</span></h2>
+    <p style="max-width:680px;margin:0 auto;font-size:1.05rem;color:var(--mid);line-height:1.9">As students who have experienced the transformative power of STEM firsthand, Aarohi and Nancy saw too many of their peers missing out — not because of lack of talent, but lack of access. Mynd was born out of that frustration and that hope: that every young person can discover they are capable of building, coding, and engineering a better world.</p>
+    <button class="btn-primary" onclick="showPage('schools')" style="margin-top:2.5rem">Bring Mynd to Your School</button>
+  </section>
+
+</div>
+
+<!-- ============ STEM RESOURCES PAGE ============ -->
+<div id="page-stem" class="page">
+
+  <div class="stem-hero">
+    <div style="font-size:0.82rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;opacity:0.7;margin-bottom:1rem">Grow Your Skills</div>
+    <h1>Expand Your STEM Horizons</h1>
+    <p>Whether you're just getting started or already deep in the code, here are the best ways to level up your engineering and STEM skills — for free.</p>
+  </div>
+
+  <div class="stem-section">
+
+    <h2>🏆 Go to Hackathons</h2>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <span class="tag tag-hackathon">Hackathon</span>
+        <h4>Find Local Hackathons</h4>
+        <p>Hackathons are weekend-long events where you build something cool with a team. Search <strong>Devpost</strong>, <strong>MLH</strong> (Major League Hacking), or ask your school about local events. Many are free and beginner-friendly.</p>
+      </div>
+      <div class="resource-card">
+        <span class="tag tag-hackathon">Hackathon</span>
+        <h4>Why Hackathons Matter</h4>
+        <p>You'll meet like-minded peers, build a real project in 24–48 hours, and learn more in a weekend than you might in a month. Win or lose — the experience is invaluable for your portfolio and résumé.</p>
+      </div>
+      <div class="resource-card">
+        <span class="tag tag-hackathon">Hackathon</span>
+        <h4>Tips to Prepare</h4>
+        <p>Practice problem-solving, learn the basics of HTML/CSS or Python, and go with a friend. Don't wait until you feel "ready" — hackathons are for learning, not perfection.</p>
+      </div>
+    </div>
+
+    <h2>💻 Learn to Code</h2>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <span class="tag tag-coding">Coding</span>
+        <h4>Start with Python 🐍</h4>
+        <p>Python is the most beginner-friendly and widely used language in engineering and AI. Start with <strong>freeCodeCamp</strong>, <strong>Khan Academy</strong>, or <strong>CS50 on edX</strong> — all completely free.</p>
+      </div>
+      <div class="resource-card">
+        <span class="tag tag-coding">Coding</span>
+        <h4>Build Websites with HTML & CSS</h4>
+        <p>Understanding how the web works is a superpower. <strong>The Odin Project</strong> and <strong>freeCodeCamp's Web Dev track</strong> will take you from zero to building real websites.</p>
+      </div>
+      <div class="resource-card">
+        <span class="tag tag-coding">Coding</span>
+        <h4>Try Scratch First 🎨</h4>
+        <p>If you're brand new to coding, Scratch by MIT is the perfect visual starting point. Create games and animations while learning the logic of programming — no prior experience needed.</p>
+      </div>
+      <div class="resource-card">
+        <span class="tag tag-coding">Coding</span>
+        <h4>Java & JavaScript</h4>
+        <p>Once you're comfortable with basics, Java is used everywhere in engineering and enterprise software. JavaScript is essential for web apps. Both have huge communities and free tutorials online.</p>
+      </div>
+      <div class="resource-card">
+        <span class="tag tag-coding">Coding</span>
+        <h4>Join a Coding Community</h4>
+        <p>Sites like <strong>Replit</strong>, <strong>GitHub</strong>, and <strong>Stack Overflow</strong> connect you with millions of coders. Share projects, ask questions, and learn from others. Community accelerates everything.</p>
+      </div>
+      <div class="resource-card">
+        <span class="tag tag-coding">Coding</span>
+        <h4>Build Projects, Not Just Courses</h4>
+        <p>The fastest way to learn is to build something real. Even a simple to-do list app or personal portfolio website teaches you more than hours of tutorials. Start small and keep shipping.</p>
+      </div>
+    </div>
+
+    <h2>📚 More STEM Resources</h2>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <span class="tag tag-resource">Science</span>
+        <h4>Science Olympiad & Competitions</h4>
+        <p>Join your school's Science Olympiad team, enter robotics competitions like <strong>FIRST Robotics</strong>, or participate in math contests like <strong>AMC</strong>. Competitions build skills and look great on applications.</p>
+      </div>
+      <div class="resource-card">
+        <span class="tag tag-resource">Engineering</span>
+        <h4>Watch Engineering Content</h4>
+        <p>YouTube channels like <strong>Mark Rober</strong>, <strong>Veritasium</strong>, <strong>SmarterEveryDay</strong>, and <strong>Real Engineering</strong> make complex engineering concepts fascinating and accessible.</p>
+      </div>
+      <div class="resource-card">
+        <span class="tag tag-resource">Research</span>
+        <h4>Find Research Opportunities</h4>
+        <p>Many universities offer summer research programs for high school students. Look for <strong>REU programs</strong>, local university partnerships, or reach out directly to professors whose work interests you.</p>
+      </div>
+    </div>
+
+    <!-- NEWSLETTER -->
+    <div class="newsletter-box">
+      <h3>Stay in the Loop 📬</h3>
+      <p>Sign up for the Mynd newsletter and get STEM tips, hackathon announcements, coding challenges, and inspiration delivered straight to your inbox.</p>
+      <div class="newsletter-form">
+        <input type="email" id="nl-email" placeholder="your@email.com">
+        <button onclick="subscribeNewsletter()">Subscribe →</button>
+      </div>
+      <div class="nl-success" id="nl-success">🎉 You're in! Welcome to the Mynd community — expect great things in your inbox.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ============ INTERACTIVE STEM QUIZ (shown on home page) ============ -->
+<div id="quiz-home-section" class="quiz-section">
+  <div class="section-label">Test Your STEM Brain!</div>
+  <h2>Quick STEM <span>Challenge</span> 🧠</h2>
+  <p>Think you know your stuff? Try our mini STEM quiz — new questions every round!</p>
+
+  <div class="quiz-box">
+    <div id="quiz-main">
+      <span class="quiz-emoji" id="q-emoji">🤔</span>
+      <div class="quiz-meta" id="q-meta">Question 1 of 5</div>
+      <div class="quiz-question" id="q-text">Loading question...</div>
+      <div class="quiz-options" id="q-opts"></div>
+      <div class="quiz-feedback" id="q-feedback"></div>
+      <div class="quiz-nav">
+        <div class="quiz-progress" id="q-progress"></div>
+        <div class="quiz-score" id="q-score">Score: 0</div>
+      </div>
+    </div>
+    <div class="quiz-complete" id="quiz-complete">
+      <span class="big-emoji" id="q-final-emoji">🎉</span>
+      <h3 id="q-final-title">Amazing!</h3>
+      <p id="q-final-msg">You're a STEM superstar! Keep exploring and growing your skills.</p>
+      <button class="btn-primary" onclick="restartQuiz()">Play Again 🔄</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Mynd<span>.</span></div>
+  <div>Mynd Nonprofit — STEM Education for All Students</div>
+  <div style="margin-top:0.5rem">
+    <a href="mailto:aarohishriya@gmail.com" style="color:var(--pink-light);text-decoration:none">aarohishriya@gmail.com</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:nancychen475@gmail.com" style="color:var(--pink-light);text-decoration:none">nancychen475@gmail.com</a>
+  </div>
+  <div style="margin-top:1rem;opacity:0.5;font-size:0.8rem">© 2025 Mynd Nonprofit. All rights reserved.</div>
+</footer>
+
+<script>
+  // ==================== CURSOR TRACKER ====================
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  let sparkleCount = 0, lastSparkle = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left  = mx + 'px';
+    dot.style.top   = my + 'px';
+
+    // Throttle sparkles to ~20fps
+    const now = Date.now();
+    if (now - lastSparkle > 50) {
+      lastSparkle = now;
+      createSparkle(mx, my);
+    }
+  });
+
+  // Ring follows with lag
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  const SPARKLE_SHAPES = ['✦', '✧', '·', '•', '★', '✿', '◆'];
+  const SPARKLE_COLORS = ['#f06b8a','#8fb5bf','#f9b8c7','#c5dde2','#fde68a','#a5d6a7'];
+
+  function createSparkle(x, y) {
+    const el = document.createElement('div');
+    el.className = 'sparkle';
+    const size = 8 + Math.random() * 14;
+    const dx = (Math.random() - 0.5) * 60;
+    const dy = (Math.random() - 0.5) * 60;
+    const color = SPARKLE_COLORS[Math.floor(Math.random() * SPARKLE_COLORS.length)];
+    const shape = SPARKLE_SHAPES[Math.floor(Math.random() * SPARKLE_SHAPES.length)];
+    el.style.cssText = `
+      left:${x}px; top:${y}px;
+      width:${size}px; height:${size}px;
+      font-size:${size}px; line-height:1;
+      color:${color};
+      --dx:${dx}px; --dy:${dy}px;
+    `;
+    el.style.background = 'transparent';
+    el.style.borderRadius = '0';
+    el.style.width = 'auto'; el.style.height = 'auto';
+    el.innerHTML = shape;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 700);
+  }
+
+  // ==================== FLOATING ORB CLICKS ====================
+  function orbClick(el, msg) {
+    const rect = el.getBoundingClientRect();
+    const tip = document.createElement('div');
+    tip.className = 'orb-tooltip';
+    tip.style.left = (rect.left + rect.width / 2) + 'px';
+    tip.style.top  = rect.top + 'px';
+    tip.textContent = msg;
+    document.body.appendChild(tip);
+
+    // Bounce the orb
+    el.style.transform = 'scale(1.4)';
+    setTimeout(() => el.style.transform = '', 300);
+
+    // Burst sparkles
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => createSparkle(rect.left + rect.width/2, rect.top + rect.height/2), i * 40);
+    }
+    setTimeout(() => tip.remove(), 2100);
+  }
+
+  // ==================== PAGE NAVIGATION ====================
+  const subscribers = [];
+  const schoolSignups = [];
+
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+
+    // Show quiz only on home
+    const quizSec = document.getElementById('quiz-home-section');
+    quizSec.style.display = name === 'home' ? 'block' : 'none';
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ==================== SCHOOL FORM ====================
+  function submitSchoolForm(e) {
+    e.preventDefault();
+    const form = document.getElementById('school-form');
+    const successMsg = document.getElementById('school-success');
+    schoolSignups.push({ timestamp: new Date().toISOString() });
+    form.style.display = 'none';
+    successMsg.style.display = 'block';
+    // burst of sparkles on success
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => createSparkle(
+        window.innerWidth/2 + (Math.random()-0.5)*300,
+        window.innerHeight/2 + (Math.random()-0.5)*200
+      ), i * 60);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ==================== NEWSLETTER ====================
+  function subscribeNewsletter() {
+    const input = document.getElementById('nl-email');
+    const email = input.value.trim();
+    const successEl = document.getElementById('nl-success');
+    if (!email || !email.includes('@')) {
+      input.style.outline = '3px solid #f06b8a';
+      input.focus();
+      return;
+    }
+    if (!subscribers.includes(email)) subscribers.push(email);
+    input.style.outline = '';
+    input.value = '';
+    document.querySelector('.newsletter-form').style.opacity = '0.4';
+    successEl.style.display = 'block';
+    for (let i = 0; i < 16; i++) {
+      setTimeout(() => createSparkle(
+        window.innerWidth/2 + (Math.random()-0.5)*400,
+        window.innerHeight * 0.75 + (Math.random()-0.5)*100
+      ), i * 70);
+    }
+    console.log('Newsletter subscribers:', subscribers);
+  }
+
+  // ==================== STEM QUIZ ====================
+  const ALL_QUESTIONS = [
+    { emoji:'🤖', q:'What does "AI" stand for?', opts:['Automatic Interaction','Artificial Intelligence','Advanced Internet','Analog Input'], ans:1, fact:'AI is technology that lets machines learn and make decisions — like how Siri or Google work!' },
+    { emoji:'💻', q:'Which of these is a programming language?', opts:['Photoshop','Python','PowerPoint','Pinterest'], ans:1, fact:'Python is one of the most popular languages in the world and is used in AI, robotics, and more!' },
+    { emoji:'🔬', q:'What does DNA stand for?', opts:['Digital Network Array','Deoxyribonucleic Acid','Data Notation Algorithm','Dynamic Neutron Activity'], ans:1, fact:'DNA carries the genetic instructions for all living things — it\'s like the code that makes you, YOU!' },
+    { emoji:'🚀', q:'What keeps satellites in orbit around Earth?', opts:['Rocket engines','Magnets','Gravity','Solar wind'], ans:2, fact:'Gravity constantly pulls satellites toward Earth, but their speed keeps them in a circular path — like a ball on a string!' },
+    { emoji:'⚡', q:'What is electricity made of?', opts:['Moving protons','Moving electrons','Moving neutrons','Moving atoms'], ans:1, fact:'Electrons are tiny particles that flow through wires when a circuit is complete — that\'s electricity!' },
+    { emoji:'🌍', q:'How many planets are in our solar system?', opts:['7','8','9','10'], ans:1, fact:'There are 8 planets: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune. (Sorry, Pluto! 🪐)' },
+    { emoji:'🔢', q:'What is the binary number for 5?', opts:['111','100','101','110'], ans:2, fact:'In binary (base-2), 5 = 1×4 + 0×2 + 1×1 = 101. Computers only use 0s and 1s!' },
+    { emoji:'🧲', q:'What are the two poles of a magnet?', opts:['North & South','East & West','Positive & Negative','Top & Bottom'], ans:0, fact:'Opposite poles attract and like poles repel — this principle powers electric motors and generators!' },
+    { emoji:'🌡️', q:'At what temperature does water boil (at sea level)?', opts:['90°C','95°C','100°C','110°C'], ans:2, fact:'Water boils at 100°C (212°F) at sea level. At higher altitudes, it boils at lower temperatures because of lower air pressure!' },
+    { emoji:'🦠', q:'What is the powerhouse of the cell?', opts:['Nucleus','Ribosome','Mitochondria','Cell wall'], ans:2, fact:'Mitochondria produce ATP — the energy currency of cells. Without them, cells couldn\'t function!' },
+    { emoji:'💡', q:'Who invented the light bulb?', opts:['Nikola Tesla','Albert Einstein','Thomas Edison','Isaac Newton'], ans:2, fact:'Thomas Edison invented the practical incandescent light bulb in 1879, changing the world forever!' },
+    { emoji:'🌐', q:'What does "www" stand for?', opts:['World Wide Web','Wide Web Windows','Web Without Wires','World Web Window'], ans:0, fact:'The World Wide Web was invented by Tim Berners-Lee in 1989 — and now connects billions of people!' },
+  ];
+
+  let qBank = [], qIndex = 0, score = 0, answered = false;
+
+  function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
+
+  function startQuiz() {
+    qBank = shuffle([...ALL_QUESTIONS]).slice(0, 5);
+    qIndex = 0; score = 0; answered = false;
+    document.getElementById('quiz-main').style.display = 'block';
+    document.getElementById('quiz-complete').style.display = 'none';
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    answered = false;
+    const q = qBank[qIndex];
+    document.getElementById('q-emoji').textContent = q.emoji;
+    document.getElementById('q-meta').textContent = `Question ${qIndex+1} of ${qBank.length}`;
+    document.getElementById('q-text').textContent = q.q;
+    document.getElementById('q-score').textContent = `Score: ${score}`;
+
+    // Options
+    const optsEl = document.getElementById('q-opts');
+    optsEl.innerHTML = '';
+    const labels = ['A','B','C','D'];
+    q.opts.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-opt';
+      btn.innerHTML = `<strong>${labels[i]}.</strong> ${opt}`;
+      btn.onclick = () => answerQ(i, btn);
+      optsEl.appendChild(btn);
+    });
+
+    // Feedback
+    const fb = document.getElementById('q-feedback');
+    fb.className = 'quiz-feedback';
+    fb.textContent = '';
+
+    // Progress dots
+    const prog = document.getElementById('q-progress');
+    prog.innerHTML = '';
+    qBank.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'quiz-dot' + (i < qIndex ? ' done' : i === qIndex ? ' current' : '');
+      prog.appendChild(d);
+    });
+  }
+
+  function answerQ(chosen, btnEl) {
+    if (answered) return;
+    answered = true;
+    const q = qBank[qIndex];
+    const correct = chosen === q.ans;
+    if (correct) score++;
+
+    // Style buttons
+    document.querySelectorAll('.quiz-opt').forEach((b, i) => {
+      b.classList.add('disabled');
+      if (i === q.ans) b.classList.add('correct');
+      else if (i === chosen && !correct) b.classList.add('wrong');
+    });
+
+    // Feedback
+    const fb = document.getElementById('q-feedback');
+    fb.className = 'quiz-feedback show ' + (correct ? 'correct' : 'wrong');
+    fb.textContent = correct
+      ? `✅ Correct! ${q.fact}`
+      : `❌ Not quite — the answer is "${q.opts[q.ans]}". ${q.fact}`;
+
+    // Sparkles on correct
+    if (correct) {
+      const box = document.querySelector('.quiz-box').getBoundingClientRect();
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => createSparkle(
+          box.left + Math.random() * box.width,
+          box.top + Math.random() * box.height
+        ), i * 50);
+      }
+    }
+
+    // Auto-advance
+    setTimeout(() => {
+      qIndex++;
+      if (qIndex < qBank.length) renderQuestion();
+      else showResult();
+    }, 2600);
+  }
+
+  function showResult() {
+    document.getElementById('quiz-main').style.display = 'none';
+    const comp = document.getElementById('quiz-complete');
+    comp.style.display = 'block';
+
+    const pct = score / qBank.length;
+    let emoji, title, msg;
+    if (pct === 1)       { emoji='🏆'; title='Perfect Score!'; msg='Absolutely incredible! You got every single question right. You were BORN for STEM — keep going, future engineer!'; }
+    else if (pct >= 0.8) { emoji='🎉'; title='Amazing Work!'; msg=`${score}/${qBank.length} — You're a STEM superstar! A little more studying and you'll be unstoppable.`; }
+    else if (pct >= 0.6) { emoji='🌟'; title='Nice Job!'; msg=`${score}/${qBank.length} — Solid effort! Every expert started as a beginner. Keep exploring and you'll crush it next time!`; }
+    else if (pct >= 0.4) { emoji='💪'; title='Keep Going!'; msg=`${score}/${qBank.length} — STEM is a journey, not a destination. Read up, try again, and watch how fast you improve!`; }
+    else                  { emoji='🚀'; title='Blast Off!'; msg=`${score}/${qBank.length} — Everyone starts somewhere! Curiosity is the first step — you've already taken it. Try again!`; }
+
+    document.getElementById('q-final-emoji').textContent = emoji;
+    document.getElementById('q-final-title').textContent = title;
+    document.getElementById('q-final-msg').textContent = msg;
+
+    // Confetti burst
+    for (let i = 0; i < 30; i++) {
+      setTimeout(() => createSparkle(
+        window.innerWidth * Math.random(),
+        window.innerHeight * 0.4 + Math.random() * 200
+      ), i * 60);
+    }
+  }
+
+  function restartQuiz() { startQuiz(); }
+
+  // Init
+  startQuiz();
+  // Hide quiz on non-home pages initially (home is active at load)
+  document.getElementById('quiz-home-section').style.display = 'block';
+</script>
+
+</body>
+</html>
