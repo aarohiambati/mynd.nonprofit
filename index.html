@@ -1432,7 +1432,6 @@
   e.preventDefault();
   const form = document.getElementById('school-form');
   const successMsg = document.getElementById('school-success');
-
   fetch('https://formspree.io/f/mkokdvyz', {
     method: 'POST',
     body: new FormData(form),
@@ -1441,6 +1440,13 @@
     if (response.ok) {
       form.style.display = 'none';
       successMsg.style.display = 'block';
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => createSparkle(
+          window.innerWidth/2 + (Math.random()-0.5)*300,
+          window.innerHeight/2 + (Math.random()-0.5)*200
+        ), i * 60);
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       alert('Something went wrong. Please try again.');
     }
@@ -1448,15 +1454,6 @@
     alert('Something went wrong. Please try again.');
   });
 }
-    // burst of sparkles on success
-    for (let i = 0; i < 20; i++) {
-      setTimeout(() => createSparkle(
-        window.innerWidth/2 + (Math.random()-0.5)*300,
-        window.innerHeight/2 + (Math.random()-0.5)*200
-      ), i * 60);
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
 
   // ==================== NEWSLETTER ====================
   function subscribeNewsletter() {
