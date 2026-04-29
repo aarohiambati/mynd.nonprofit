@@ -1428,12 +1428,26 @@
   }
 
   // ==================== SCHOOL FORM ====================
-  function submitSchoolForm(e) {
-    const form = document.getElementById('school-form');
-    const successMsg = document.getElementById('school-success');
-    schoolSignups.push({ timestamp: new Date().toISOString() });
-    form.style.display = 'none';
-    successMsg.style.display = 'block';
+ function submitSchoolForm(e) {
+  e.preventDefault();
+  const form = document.getElementById('school-form');
+  const successMsg = document.getElementById('school-success');
+
+  fetch('https://formspree.io/f/mkokdvyz', {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(response => {
+    if (response.ok) {
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  }).catch(() => {
+    alert('Something went wrong. Please try again.');
+  });
+}
     // burst of sparkles on success
     for (let i = 0; i < 20; i++) {
       setTimeout(() => createSparkle(
